@@ -1,3 +1,5 @@
+import { parseCarNameString, removeAllSpaces } from '../src/utils/utils';
+
 describe('입력된 경주할 자동차 이름 문자열을 문자열 배열로 파싱한다.', () => {
   test.each([
     {
@@ -16,6 +18,8 @@ describe('입력된 경주할 자동차 이름 문자열을 문자열 배열로 
       expected: ['pobi'],
     },
   ])('$desc', ({ input, expected }) => {
-    expect(inputFunc(input)).toEqual(expected);
+    const cleanedCarNameString = removeAllSpaces(input);
+
+    expect(parseCarNameString(cleanedCarNameString)).toEqual(expected);
   });
 });
