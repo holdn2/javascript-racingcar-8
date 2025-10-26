@@ -18,8 +18,8 @@ describe('입력된 경주할 자동차 이름 문자열을 문자열 배열로 
       expected: ['pobi'],
     },
   ])('$desc', ({ input, expected }) => {
-    const cleanedCarNameString = removeAllSpaces(input);
+    const noSpaceString = removeAllSpaces(input);
 
-    expect(parseCarNameString(cleanedCarNameString)).toEqual(expected);
+    expect(parseCarNameString(noSpaceString)).toEqual(expected);
   });
 });
