@@ -33,7 +33,7 @@ describe('자동차 이름 문자열을 파싱 이후 예외 처리 테스트', 
       expected: ERROR_MESSAGE.EMPTY_CAR_NAME_LIST,
     },
   ])('$desc', ({ input, func, expected }) => {
-    // when / then
+    // when & then
     expect(() => func(input)).toThrow(expected);
   });
 });
@@ -43,7 +43,7 @@ describe('시도할 횟수 입력 예외 처리 테스트', () => {
     // given
     const input = '-6';
 
-    // when / then
+    // when & then
     expect(() => validateAttemptCount(input)).toThrow(
       ERROR_MESSAGE.INVALID_ATTEMPT_COUNT,
     );
