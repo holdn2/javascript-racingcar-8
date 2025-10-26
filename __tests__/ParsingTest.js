@@ -2,6 +2,7 @@ import { parseCarNameString, removeAllSpaces } from '../src/utils/utils';
 
 describe('입력된 경주할 자동차 이름 문자열을 문자열 배열로 파싱한다.', () => {
   test.each([
+    // given
     {
       desc: '유효한 이름 입력 - 쉼표로 구분된 세 개의 이름',
       input: 'pobi,woni,jun',
@@ -18,8 +19,11 @@ describe('입력된 경주할 자동차 이름 문자열을 문자열 배열로 
       expected: ['pobi'],
     },
   ])('$desc', ({ input, expected }) => {
+    // when
     const noSpaceString = removeAllSpaces(input);
+    const parsedCarNameArray = parseCarNameString(noSpaceString);
 
-    expect(parseCarNameString(noSpaceString)).toEqual(expected);
+    //then
+    expect(parsedCarNameArray).toEqual(expected);
   });
 });
