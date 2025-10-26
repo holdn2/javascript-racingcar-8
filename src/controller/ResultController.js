@@ -1,5 +1,5 @@
 import { MARK } from '../constant/mark.js';
-import resultView from '../view/ReseultView.js';
+import resultView from '../view/ResultView.js';
 
 export default class ResultController {
   #racingCar;

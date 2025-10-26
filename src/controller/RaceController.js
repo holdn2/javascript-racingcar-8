@@ -1,7 +1,7 @@
 import { MARK } from '../constant/mark.js';
 import { validateAttemptCount } from '../utils/validator.js';
 import inputView from '../view/InputView.js';
-import resultView from '../view/ReseultView.js';
+import resultView from '../view/ResultView.js';
 
 export default class RaceController {
   #racingCar;
