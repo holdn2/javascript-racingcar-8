@@ -16,9 +16,8 @@ describe('CarRegisterController 테스트. 문자열 입력에 대하여 배열�
     const inputs = ['pobi,woni,jun'];
     mockQuestions(inputs);
 
-    const controller = new CarRegisterController();
-
     // when
+    const controller = new CarRegisterController();
     const result = await controller.run();
     const carNames = result.map((car) => car.carCurrentInfo.carName);
 
@@ -31,9 +30,10 @@ describe('CarRegisterController 테스트. 문자열 입력에 대하여 배열�
     const inputs = ['pobi,woni##'];
     mockQuestions(inputs);
 
+    // when
     const controller = new CarRegisterController();
 
-    // when & then
+    //  then
     await expect(controller.run()).rejects.toThrow('[ERROR]');
   });
 
@@ -42,9 +42,10 @@ describe('CarRegisterController 테스트. 문자열 입력에 대하여 배열�
     const inputs = [''];
     mockQuestions(inputs);
 
+    // when
     const controller = new CarRegisterController();
 
-    // when & then
+    // then
     await expect(controller.run()).rejects.toThrow('[ERROR]');
   });
 });
