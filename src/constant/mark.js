@@ -1,5 +1,5 @@
 export const MARK = {
-  EMTPY: '',
+  EMPTY: '',
   COLON: ' : ',
   DASH: '-',
   COMMA: ', ',
