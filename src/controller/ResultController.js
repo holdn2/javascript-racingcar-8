@@ -11,7 +11,7 @@ export default class ResultController {
     this.#winners = [];
   }
 
-  async run() {
+  run() {
     this.#getMostSuccesses();
     this.#getWinners();
 
