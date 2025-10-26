@@ -77,53 +77,119 @@ jun : -----
 
 ## 추가 결정 요구사항
 
-- 입력에 포함된 모든 공백은 제거 후 판정한다.
+- 자동차 이름 입력에 포함된 모든 공백은 제거 후 판정한다.
 - 자동차 이름 한글/영문/숫자만 허용한다.
 - 동일한 이름이 있다면 에러를 발생시킨다.
 - 1대 이상의 자동차를 입력해야 한다.
-- `pobi,,jun`, `, ,` 처럼 빈 토큰이 생기면 제거 후 판정한다.
-- 시도할 횟수는 양의 정수만 허용한다.
+- 입력 문자열에서 공백 제거 후 쉼표를 기준으로 분리하였을 때 빈 토큰이 생기면 제거 후 판정한다.
+- 시도할 횟수 입력은 양의 정수만 허용한다.
 
 ## 👉 프로그램 흐름
 
-1. **경주할 자동차 이름 입력**
-   - 입력 받은 문자열의 모든 공백은 제거한다.
-   - `,`로 각 자동차 이름을 구분하여 배열로 변환한다.
-   - 아래의 조건을 만족하지 않을 때, 에러를 발생시킨다.
-     - 이름은 `영어/한글/숫자`만을 허용한다.
-     - 1자 이상 5자 이하로 입력해야 한다.
-     - 중복된 이름이 없어야 한다.
-     - 조건을 모두 만족하는 자동차는 1대 이상이어야 한다.
+1. **경주할 자동차 이름 입력 (CarRegisterController)**
 
-2. **시도할 횟수 입력**
-   - 입력 받은 문자열의 모든 공백을 제거한다.
-   - 횟수는 양의 정수로만 입력해야 하고, 그 외의 경우에는 에러를 발생시킨다.
+- 입력 받은 문자열의 모든 공백을 제거한다.
+  - 영어, 한글, 숫자, `,` 외의 문자를 포함하면 에러를 발생시킨다.
+- `,`로 분리한 뒤 빈 토큰을 제거하고 배열로 변환한다.
+- 배열로 변환한 이후 아래 조건을 만족하지 않으면 에러를 발생시킨다.
+  - 중복 이름 불가
+  - 최소 1대 이상이어야 함
+  - 이름이 5자 이하여야 함
+- 배열의 문자열을 이름으로 갖는 `RacingCar` 클래스를 생성하여 반환한다.
 
-3. **RacingCar** 클래스 생성
-   - 입력 받은 자동차에 따라 각각 RacingCar 클래스를 생성한다.
-   - `carName`(이름), `successCount`(성공 횟수), `tryToMove()`(전진 시도 함수)를 가진다.
-   - `tryToMove()`는 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우 `successCount`를 1 증가시킨다.
-   - 무작위 값을 구할 때는 `Random.pickNumberInRange()` 를 활용한다.
+2. **자동차 경주 게임 진행 (RaceController)**
 
-4. **전진 시도 및 실행 결과 출력**
-   - 입력받은 시도할 횟수만큼 각 자동차의 `tryToMove` 를 실행한다.
-   - 매 시도마다 `Console.print()` 로 실행 결과를 출력한다.
-   - 각 자동차의 `carName`과 함께 `successCount` 만큼 `-` 를 출력한다.
-   - 출력 형식 : `pobi : -`
+- 시도할 횟수를 입력 받는다.
+  - 횟수는 양의 정수로만 입력해야 하고, 그 외의 경우에는 에러를 발생시킨다.
+- 각 `RacingCar` 객체의 `tryToMove`을 시도할 횟수만큼 호출한다.
+- 각 `RacingCar` 객체의 전진 횟수(`successCount`)를 이름과 함께 `-`를 사용하여 출력한다.
+  - 출력 예시는 다음과 같다.
+    ```
+    pobi : --
+    woni : ----
+    jun : ---
+    ```
 
-5. **최종 우승자 출력**
-   - 모든 시도가 종료된 이후 `Console.print()` 로 우승자의 이름을 출력한다.
-   - 각 자동차가 가진 `successCount` 를 비교하여 가장 큰 경우의 자동차 이름을 출력한다.
-   - `successCount` 가 동일한 경우 모두 출력한다.
-   - 출력 형식 : `최종 우승자 : pobi, jun`
+3. **자동차 게임 결과 출력 (ResultController)**
+
+- 각 `RacingCar` 객체의 전진 횟수를 비교하여 가장 높은 횟수를 구한다.
+- 가장 높은 횟수를 가진 우승자를 찾아서 아래와 같은 형태로 출력한다.
+  - 단독 우승자의 경우
+    ```
+    최종 우승자 : pobi
+    ```
+  - 공동 우승자의 경우
+    ```
+    최종 우승자 : pobi, jun
+    ```
+
+## 📍 함수
+
+### Model
+
+- `RacingCar.tryToMove()` : `Random.pickNumberInRange(0, 9)` 결과가 ≥ 4면 `successCount` 1 증가
+- `RacingCar.carCurrentInfo (getter)` : `{ carName, successCount }` 반환 (상태 조회용)
+
+### View
+
+- `InputView.readLineCarNames()` : 경주할 자동차 이름 문자열 입력 받기
+- `InputView.readLineAttemptCount()` : 시도할 횟수 후 문자열 입력 받기
+- `ResultView.printRacingStart()` : “실행 결과” 안내 출력
+- `ResultView.printEachCar(carName, progress)` : `carName + " : " + progress` 형식으로 1줄 각 자동차에 대하여 출력
+- `ResultView.printLineBreak()` : 라운드 간 공백 줄 출력(빈 문자열 출력)
+- `ResultView.printFinalResult(winners)` : `최종 우승자 : ${winners}` 출력
+
+### Controller
+
+- `RaceController.#race()` : 입력된 횟수만큼 라운드 반복, 각 라운드에서 모든 자동차 `tryToMove()` 호출 후 `#printEachCarResult()` 실행
+- `RaceController.#printEachCarResult()` : 각 자동차의 `successCount`를 `-`로 렌더링하여 라인별 출력, 라운드 구분 공백 줄 출력
+- `ResultController.#getMostSuccesses()` : `RacingCar[]`에서 `successCount`의 최댓값 계산
+- `ResultController.#getWinners()` : 최댓값을 가진 자동차들의 이름 배열 도출
+
+### Utils
+
+- `removeAllSpaces(input)` : 모든 공백 제거(정규식 `\s` 기반)
+- `parseCarNameString(input)` : 쉼표를 기준으로 분리 후 빈 토큰 제거하여 이름 배열 생성
+
+### Validator
+
+- `validateCarNameString(input)` : 공백 제거 전의 원본 이름 문자열에 대해 허용 문자(영/한/숫자/쉼표) 여부 검증. 위반 시 `[ERROR]` throw
+- `validateCarNameArray(arr)` : 1대 이상, 중복 없음, 각 이름 5자 이하 검증. 위반 시 `[ERROR]` throw
+- `validateAttemptCount(input)` : 양의 정수 여부 검증. 위반 시 `[ERROR]` throw
 
 ## 🔥 예외 처리
 
-- [ERROR] 자동차 이름은 영어, 한글, 숫자만 입력 가능합니다.
+- [ERROR] 자동차 이름은 영어, 한글, 숫자, 쉼표(,)만 입력 가능합니다.
 - [ERROR] 이름은 5자 이하로만 입력 가능합니다.
 - [ERROR] 이름이 중복되었습니다. 모두 다른 이름으로 입력해주세요.
 - [ERROR] 1대 이상의 자동차 이름을 입력해주세요.
 - [ERROR] 시도할 횟수는 양의 정수로 입력해주세요.
+
+## 📁 디렉토리 구조
+
+```
+src/
+ ├─ 📄 index.js
+ ├─ 📄 App.js                       # 전체 실행 흐름
+ ├─ 📁 constant/                    # 상수/정규식/메시지
+ │   ├─ 📄 error.js                 # 에러 메시지 상수
+ │   ├─ 📄 inform.js                # 안내/입출력 메시지 상수
+ │   ├─ 📄 mark.js                  # 출력 포맷 기호 (콜론/대시/콤마 등)
+ │   └─ 📄 regex.js                 # 입력 검증 정규식
+ ├─ 📁 controller/                  # 흐름 제어
+ │   ├─ 📄 CarRegisterController.js # 이름 입력, 파싱/검증, RacingCar 배열 생성
+ │   ├─ 📄 RaceController.js        # 시도 횟수 입력/검증, 라운드 진행 및 라운드 출력
+ │   └─ 📄 ResultController.js      # 최댓값 산출, 우승자 목록 생성 및 최종 출력
+ ├─ 📁 model/                       # 도메인 엔티티
+ │   └─ 📄 RacingCar.js             # 자동차 상태(name/position)와 tryToMove()
+ ├─ 📁 utils/                       # 유틸 / 검증
+ │   ├─ 📄 utils.js                 # 공백 제거, 이름 문자열 파싱 등 순수 함수
+ │   └─ 📄 validator.js             # 자동차 이름 / 시도할 횟수 검증 로직
+ └─ 📁 view/                        # 콘솔 입출력
+     ├─ 📄 InputView.js             # 입력 전담(readLineAsync)
+     └─ 📄 ResultView.js            # 출력 전담(print)
+
+```
 
 ## 💻 참고자료
 
