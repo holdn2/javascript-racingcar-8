@@ -1,6 +1,6 @@
 export const MARK = {
-  LINE_BREAK: '\n',
-  DELEMETER: ' : ',
-  SUCCESS_COUNT: '-',
-  SEPARATOR: ', ',
+  NEW_LINE: '\n',
+  COLON: ' : ',
+  DASH: '-',
+  COMMA: ', ',
 };

@@ -8,11 +8,11 @@ const resultView = {
   },
 
   printEachCar(carName, successCountView) {
-    Console.print(carName + MARK.DELEMETER + successCountView);
+    Console.print(carName + MARK.COLON + successCountView);
   },
 
   printLineBreak() {
-    Console.print(MARK.LINE_BREAK);
+    Console.print(MARK.NEW_LINE);
   },
 
   printFinalResult(winners) {
