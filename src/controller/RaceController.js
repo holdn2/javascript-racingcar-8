@@ -12,6 +12,7 @@ export default class RaceController {
   }
 
   async run() {
+    // 시도할 횟수 입력
     this.#attemptCount = await inputView.readLineAttemptCount();
     validateAttemptCount(this.#attemptCount);
 
@@ -20,6 +21,7 @@ export default class RaceController {
     this.#race();
   }
 
+  // 시도할 횟수만큼 반복하여 각 RacingCar의 tryToMove 호출 후 라운드 결과 출력
   #race() {
     for (let i = 0; i < this.#attemptCount; i++) {
       this.#racingCar.forEach((car) => car.tryToMove());
@@ -27,6 +29,7 @@ export default class RaceController {
     }
   }
 
+  // 라운드 결과를 출력하는 함수
   #printEachCarResult() {
     this.#racingCar.forEach((element) => {
       const successCountView = MARK.DASH.repeat(
