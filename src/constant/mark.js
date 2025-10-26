@@ -1,5 +1,5 @@
 export const MARK = {
-  EMPTY: '',
+  NEW_LINE: '',
   COLON: ' : ',
   DASH: '-',
   COMMA: ', ',
