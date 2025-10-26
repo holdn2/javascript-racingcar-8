@@ -28,7 +28,7 @@ export default class RaceController {
   }
 
   #printEachCarResult() {
-    this.#racingCar.map((element) => {
+    this.#racingCar.forEach((element) => {
       const successCountView = MARK.DASH.repeat(
         element.carCurrentInfo.successCount,
       );
