@@ -12,7 +12,7 @@ const resultView = {
   },
 
   printLineBreak() {
-    Console.print(MARK.NEW_LINE);
+    Console.print(MARK.EMTPY);
   },
 
   printFinalResult(winners) {
